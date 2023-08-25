@@ -1,0 +1,9 @@
+{
+  "profiles": {
+    "WordCount": {
+      "commandName": "Project",
+      "commandLineArgs": "TextFile1.txt TextFile2.txt TextFile3.txt",
+      "workingDirectory": "E:\\frostreactor\\simcorptask\\WordCount"
+    }
+  }
+}

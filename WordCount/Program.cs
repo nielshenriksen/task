@@ -1,11 +1,21 @@
 ﻿
-var file1 = "Go do that thing that you do so well";
-var file2 = "I play football well";
+if (args.Length == 0) {
+    Console.WriteLine("There are missing file(s) with words");
+}
 
 var core = new WordCountLib.Core();
 
-core.AddText(file1);
-core.AddText(file2);
+// run through all files
+foreach(var arg in args) {
+
+    if(!File.Exists(arg)) {
+        Console.WriteLine($"Missing file: {arg}");
+        break;
+    }
+
+    var file = File.ReadAllText(arg);
+    core.AddText(file);
+}
 
 Console.WriteLine(core.ToString());
 Console.ReadLine();

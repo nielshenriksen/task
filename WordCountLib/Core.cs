@@ -15,6 +15,15 @@
         }
 
         /// <summary>
+        /// Reset the list
+        /// </summary>
+        public void Clear()
+        {
+            words = new Dictionary<string, int>();
+            ForceCaseSensitive = false;
+        }
+
+        /// <summary>
         /// Force the text to be case sensitive or not
         /// </summary>
         public bool ForceCaseSensitive { get; set; }
@@ -23,17 +32,17 @@
         /// Add a text string to the wordlist.
         /// </summary>
         /// <param name="text"></param>
-        public void AddText(string text)
+        /// <returns>Number of words found</returns>
+        public int AddText(string text)
         {
             var found = text.Split(" ");
+            var foundWords = 0;
 
             foreach (var word in found) {
-                
                 // we dont count space
                 if(String.IsNullOrEmpty(word)) continue;
 
-                // regex for letters and numbers
-
+                foundWords++;
 
                 if (words.ContainsKey(word)) {
                     words[word]++;
@@ -43,6 +52,7 @@
                 }
             }
 
+            return foundWords;
         }
 
         /// <summary>
@@ -63,9 +73,11 @@
         /// <returns></returns>
         public override string ToString()
         {
+            var sortedWords = words.OrderBy(x => x.Key).ToDictionary(x => x.Key, x => x.Value);
+
             var response = "";
-            foreach (var word in words) {
-                response += $"{word.Key} {word.Value}";
+            foreach (var word in sortedWords) {
+                response += $"{word.Key} {word.Value}\r\n";
             }
 
             return response;
